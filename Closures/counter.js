@@ -8,7 +8,7 @@ time it is called (n, n + 1, n + 2, etc).
 var CreateCounter = function (n){
     var IntialState = n-1;
     return function(){
-        IntialState+=1;
+        IntialState+=1; // increment 1
         return IntialState;
     };
 };
