@@ -18,6 +18,7 @@ var filter = function(arr, fn){
     }
     return res;
 };
+// remove this below code will you submit in the leetcode this is for testing purpose only
     
 const Even = function(Arr, fn){
     return Arr % 2 !== 0;
