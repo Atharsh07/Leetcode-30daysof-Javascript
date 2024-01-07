@@ -13,7 +13,7 @@ Please solve it without using the built-in Array.reduce method.
 var reduce = function(nums, fn, init){
     var val = init;
     for(i in nums){
-        val = fn(val, nums[i])
+        val = fn(val, nums[i])   // passes two things one the initial value and the element in the array
         return val;
     }
 }
