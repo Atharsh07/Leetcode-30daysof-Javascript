@@ -7,6 +7,9 @@ If the length of the array is 0, the function should return init.
 Please solve it without using the built-in Array.reduce method.
 */
 
+// TC = O(n)
+// SP = O(1)
+
 var reduce = function(nums, fn, init){
     var val = init;
     for(i in nums){
