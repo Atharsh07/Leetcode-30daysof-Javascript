@@ -8,3 +8,14 @@ If the execution of the fn exceeds the time limit, the time limited function sho
 */
 
 
+var timeLimit = function(fn, t) {
+    return async function(...args){
+        return new Promise((resolve, rejected) => {
+                setTimeout(() => {
+                    rejected("Time Limit Exceeded")
+                }, t);
+            fn(...args).then(resolve).catch(rejected)
+        })
+
+    }
+};
