@@ -10,48 +10,30 @@ count(): returns the count of un-expired keys. */
 
 // CACHE    WITH TIME LIMIT 
 
-var TimeLimitedCache = function() {
-    this.cache = new Map();
-};
-
-/** 
- * @param {number} key
- * @param {number} value
- * @param {number} duration time until expiration in ms
- * @return {boolean} if un-expired key already existed
- */
-TimeLimitedCache.prototype.set = function(key, value, duration) {
-    const alreadyExists = this.cache.get(key)
-    if(alreadyExists){
-        //clear timeout
+class TimeLimitedCache {
+    constructor() {
+      this.cache = new Map();
     }
-    this.cache.set(key, value)
-    const timeoutId = setTimeout(() => {
-        this.cache.remove(key);
-    }, duration)
-    return Boolean(alreadyExists)
-};
-
-/** 
- * @param {number} key
- * @return {number} value associated with key
- */
-TimeLimitedCache.prototype.get = function(key) {
-    if(this.cache.has(key))
-        return this.cache.get(key)
-    return -1;
-};
- 
-/** 
- * @return {number} count of non-expired keys
- */
-TimeLimitedCache.prototype.count = function() {
-    return this.cache.size;
-};
-
-/**
- * const timeLimitedCache = new TimeLimitedCache()
- * timeLimitedCache.set(1, 42, 1000); // false
- * timeLimitedCache.get(1) // 42
- * timeLimitedCache.count() // 1
- */
+  
+    set(key, value, duration) {
+      const keyExist = this.cache.get(key);
+      if (keyExist)
+        clearTimeout(keyExist.timer);
+      const timer = setTimeout(() => this.cache.delete(key), duration);
+      this.cache.set(key, { value, timer });
+      return Boolean(keyExist);
+    }
+  
+    get(key) {
+      return this.cache.has(key) ? this.cache.get(key).value : -1;
+    }
+  
+    count() {
+      return this.cache.size;
+    }
+  }
+  
+  var obj = new TimeLimitedCache();
+  console.log(obj.set(1, 42, 1000)); // false
+  console.log(obj.get(1)); // 42
+  console.log(obj.count()); // 1
