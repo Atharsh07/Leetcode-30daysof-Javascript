@@ -11,7 +11,7 @@ count(): returns the count of un-expired keys. */
 // CACHE    WITH TIME LIMIT 
 
 var TimeLimitedCache = function() {
-    
+    this.cache = new Map();
 };
 
 /** 
