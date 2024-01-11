@@ -10,4 +10,19 @@ Please solve it without using the built-in Promise.all function.
 
   */
 
-
+var promiseAll = async function (functions) {
+    return new Promise((res, rej) => {
+      let len = functions.length,
+        ct = 0;
+      const ans = new Array(len);
+      for (let ind = 0; ind < len; ++ind) {
+        functions[ind]()
+          .then((val) => {
+            ans[ind] = val;
+            ct++;
+            if (ct === len) res(ans);
+          })
+          .catch((err) => rej(err));
+      }
+    });
+  };
