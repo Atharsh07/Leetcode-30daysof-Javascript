@@ -7,8 +7,7 @@ promise rejects:
 
 When any of the promises returned from functions were rejected. promise should also reject with the reason of the first rejection.
 Please solve it without using the built-in Promise.all function.
-
-  */
+*/
 
 var promiseAll = async function (functions) {
     return new Promise((res, rej) => {
